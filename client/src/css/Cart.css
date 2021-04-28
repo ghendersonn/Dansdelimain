@@ -1,0 +1,19 @@
+/* fix cart to side of menu */
+/* .cart {
+
+ width: 20rem;
+ display: flex;
+ margin-left: 72%;
+ position: fixed;
+}
+.products {
+    margin-left: -4rem;
+} */
+
+.cart {
+
+    width: 50rem;
+    
+    
+   }
+   

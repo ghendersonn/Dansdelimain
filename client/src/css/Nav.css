@@ -1,0 +1,15 @@
+.nav {
+    width: 100%;
+    color: black;
+    display: flex;
+    justify-content: center;
+
+}
+.nav li {
+    padding: 30px;
+    list-style-type: none;
+    
+}
+Link {
+    text-decoration: none;
+}
