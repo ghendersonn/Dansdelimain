@@ -4,6 +4,10 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+import { getCart } from '../actions/cartActions';
+
+
+
 
 
 
@@ -23,6 +27,7 @@ export default function CheckoutForm(props) {
   const elements = useElements();
 
   
+
 
   useEffect(() => {
     
