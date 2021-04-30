@@ -16,8 +16,16 @@ class Products extends Component {
     }
 
     getCategory = async () => {
+        const { items }  = this.props.item;
+        console.log( items )
+        let steaks = []
+        items.forEach(element => {
+            if ( element.category === "Steaks") {
+            steaks.push( element )
+            console.log( steaks )  
+            }
+        })
         
-        console.log( this.props.item )   
         };
         
         
@@ -42,15 +50,32 @@ class Products extends Component {
     render(){
         const { items } = this.props.item;
         const user = this.props.user;
-        
+        let steaks = []
+        items.forEach(element => {
+            if ( element.category === "Steaks") {
+            steaks.push( element )
+            console.log( steaks )  
+            }
+        })
+
+        let hoagies = []
+        items.forEach(element => {
+            if ( element.category === "Hoagies") {
+            hoagies.push( element )
+            console.log( hoagies )  
+            }
+        })
+
 
 
         return (
             <div>
-           
+
             <Container>
+            <h2>Steaks</h2>
                 <div className="row">
-                {items.map((item)=>(
+                {steaks.map((item )=>(
+                    
                     <div className="col-md-4">
                     <Card className="mb-4">
                         <CardBody>
@@ -72,12 +97,14 @@ class Products extends Component {
                  </div>
             </Container>
 
-
             <Container>
+            <h2>Hoagies</h2>
                 <div className="row">
-                {items.map((item )=>(
+                
+                {hoagies.map((item )=>(
                     
                     <div className="col-md-4">
+                        
                     <Card className="mb-4">
                         <CardBody>
                             
