@@ -47,7 +47,6 @@ class AddItem extends Component {
     render(){
         return(
             <div>
-                <AppNavbar/>
                 <Container>
                     <h2 className="text-center mb-3">Add a new Item</h2>
                     { this.props.isAuthenticated ?

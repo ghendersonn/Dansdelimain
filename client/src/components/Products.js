@@ -66,6 +66,17 @@ class Products extends Component {
             }
         })
 
+        let sandwiches = []
+        items.forEach(element => {
+            if ( element.category === "Sandwiches") {
+            sandwiches.push( element )
+            console.log( sandwiches )  
+            }
+        })
+
+
+
+
 
 
         return (
@@ -81,7 +92,8 @@ class Products extends Component {
                         <CardBody>
                             
                             <CardTitle tag="h5">{item.name}</CardTitle>
-                            <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
+                            
+                            <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
                             <CardText>{item.category}</CardText>
                             {this.props.isAuthenticated ? 
                                 <Button
@@ -109,7 +121,37 @@ class Products extends Component {
                         <CardBody>
                             
                             <CardTitle tag="h5">{item.name}</CardTitle>
-                            <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
+                            <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
+                            <CardText>{item.category}</CardText>
+                            {this.props.isAuthenticated ? 
+                                <Button
+                                    color="success"
+                                    size="sm"
+                                    onClick={this.onAddToCart.bind(this, user._id, item._id)}
+                                    >Add To Cart</Button> :
+                                    null}
+                        </CardBody>
+                    </Card>
+                    </div>
+                ))}
+                 </div>
+            </Container>
+
+
+
+            <Container>
+            <h2>Sandwiches</h2>
+                <div className="row">
+                
+                {sandwiches.map((item )=>(
+                    
+                    <div className="col-md-4">
+                        
+                    <Card className="mb-4">
+                        <CardBody>
+                            
+                            <CardTitle tag="h5">{item.name}</CardTitle>
+                            <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
                             <CardText>{item.category}</CardText>
                             {this.props.isAuthenticated ? 
                                 <Button

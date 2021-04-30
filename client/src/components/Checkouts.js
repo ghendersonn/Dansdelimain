@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
 import {
   CardElement,
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
+
+
+
+
+
+
+
+
 
 
 const Field = ({
@@ -41,7 +50,7 @@ export default function CheckoutForm(props) {
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState('');
-  const [products, setProducts] = useState({})
+  const [cart, setCart] = useState()
   const [billingDetails, setBillingDetails] = useState({
     email: "",
     phone: "",
@@ -50,10 +59,7 @@ export default function CheckoutForm(props) {
 
   const stripe = useStripe();
   const elements = useElements();
-
-
-
- 
+  
   useEffect(() => {
     window
       .fetch("/create-payment-intent", {
@@ -176,7 +182,7 @@ export default function CheckoutForm(props) {
           ) : (
             "Pay now " 
           )}
-          {"$"}{products.subTotal}
+          {"$"}{ }
         </span>
       </button>
       {/* Show any error that happens when processing the payment */}
