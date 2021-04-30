@@ -29,7 +29,7 @@ module.exports.add_cart_item = async (req,res) => {
             res.status(404).send('Item not found!')
         }
         const price = item.price;
-        const name = item.title;
+        const name = item.name;
         
         if(cart){
             // if cart exists for the user

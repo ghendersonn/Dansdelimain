@@ -40,6 +40,7 @@ class Cart extends Component {
         const user = this.props.user;
         if(this.props.isAuthenticated && !this.props.cart.loading && !this.state.loaded){
             this.getCartItems(user._id);
+            
         }
         return(
             <div>
@@ -61,10 +62,10 @@ class Cart extends Component {
                             <div className="col-md-4">
                         <Card>
                             <CardBody>
-                                <CardTitle tag="h5">{item.name}</CardTitle>
+                                <CardText tag="h5">{item.name}</CardText>
                                 <CardSubtitle tag="h6">${item.price}</CardSubtitle>
                                 <CardText>Quantity - {item.quantity}</CardText>
-                                <Button color="danger" onClick={this.onDeleteFromCart.bind(this, user._id, item.productId)}>Delete</Button>
+                                <Button onClick={this.onDeleteFromCart.bind(this, user._id, item.productId)}>Delete</Button>
                             </CardBody>
                         </Card>
                         <br/>
@@ -75,7 +76,7 @@ class Cart extends Component {
                             
                                 <CardTitle tag="h5">Total Cost = $ {this.props.cart.cart.bill}</CardTitle>
                                 <Elements stripe={promise}>
-                                    <CheckoutForm />
+                                    <CheckoutForm total={this.props.cart.cart.bill} />
                                 </Elements>                   
                             
                         

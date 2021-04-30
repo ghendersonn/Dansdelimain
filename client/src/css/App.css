@@ -6,6 +6,10 @@
   height: 100vh;
 }
 
+
+h5 {
+  color: black;
+}
 .mainheading {
 display: flex;
 color: white;

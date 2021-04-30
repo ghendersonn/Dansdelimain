@@ -6,11 +6,23 @@ import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
 import { addToCart } from '../actions/cartActions';
 
+
+
 class Products extends Component {
 
     componentDidMount(){
         this.props.getItems();
+        
     }
+
+    getCategory = async () => {
+        
+        console.log( this.props.item )   
+        };
+        
+        
+    
+    
 
     static propTypes = {
         getItems: PropTypes.func.isRequired,
@@ -25,9 +37,14 @@ class Products extends Component {
         alert ('Item added to Cart');
     }
 
+    
+
     render(){
         const { items } = this.props.item;
         const user = this.props.user;
+        
+
+
         return (
             <div>
            
@@ -37,6 +54,7 @@ class Products extends Component {
                     <div className="col-md-4">
                     <Card className="mb-4">
                         <CardBody>
+                            
                             <CardTitle tag="h5">{item.name}</CardTitle>
                             <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
                             <CardText>{item.category}</CardText>
@@ -53,6 +71,35 @@ class Products extends Component {
                 ))}
                  </div>
             </Container>
+
+
+            <Container>
+                <div className="row">
+                {items.map((item )=>(
+                    
+                    <div className="col-md-4">
+                    <Card className="mb-4">
+                        <CardBody>
+                            
+                            <CardTitle tag="h5">{item.name}</CardTitle>
+                            <CardSubtitle tag="h6">Rs. {item.price}</CardSubtitle>
+                            <CardText>{item.category}</CardText>
+                            {this.props.isAuthenticated ? 
+                                <Button
+                                    color="success"
+                                    size="sm"
+                                    onClick={this.onAddToCart.bind(this, user._id, item._id)}
+                                    >Add To Cart</Button> :
+                                    null}
+                        </CardBody>
+                    </Card>
+                    </div>
+                ))}
+                 </div>
+            </Container>
+
+
+
             </div>
         )
     }

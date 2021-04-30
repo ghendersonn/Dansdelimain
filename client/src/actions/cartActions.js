@@ -13,7 +13,7 @@ export const getCart = (id) => dispatch => {
 }
 
 export const addToCart = (id, productId, quantity) => dispatch => {
-    axios.post(`/api/cart/${id}`, {productId, quantity})
+    axios.post(`/api/cart/${id}`, {productId, quantity, })
         .then(res => dispatch({
             type: ADD_TO_CART,
             payload: res.data

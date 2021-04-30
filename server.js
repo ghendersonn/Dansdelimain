@@ -27,7 +27,7 @@ if(process.env.NODE_ENV === 'production') {
     });
 }
 
-const stripe = require("stripe")("sk_test_51INoKRAFG88dmRAys2pjMte3S62Hrz7nH9fGSHZdJd20YQyEf5kSBfVQiyjF3IgmyUTh8PnwsKaY4F2kndA6JnkY00M0JyHfqa");
+const stripe = require("stripe")("sk_test_51IN7khGVhP2rcc7nk5psNjLWxh8hYDtvdJjrGe3JlEIlOFYjaQvQ3yiGixPZV9PB71Lid3hPj10r3bcYOuyU0Vvl001eRp4Yf9");
 
 
 function calculateOrderAmount(products) {

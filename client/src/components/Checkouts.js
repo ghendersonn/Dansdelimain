@@ -4,13 +4,34 @@ import {
   useStripe,
   useElements
 } from "@stripe/react-stripe-js";
-import { getCart } from '../actions/cartActions';
 
 
-
-
-
-
+const Field = ({
+  label,
+  id,
+  type,
+  placeholder,
+  required,
+  autoComplete,
+  value,
+  onChange
+}) => (
+  <div className="FormRow">
+    <label htmlFor={id} className="FormRowLabel">
+      {label}
+    </label>
+    <input
+      className="FormRowInput"
+      id={id}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      autoComplete={autoComplete}
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
 
 
 export default function CheckoutForm(props) {
@@ -21,16 +42,19 @@ export default function CheckoutForm(props) {
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState('');
   const [products, setProducts] = useState({})
-
+  const [billingDetails, setBillingDetails] = useState({
+    email: "",
+    phone: "",
+    name: ""
+  });
 
   const stripe = useStripe();
   const elements = useElements();
 
-  
 
 
+ 
   useEffect(() => {
-    
     window
       .fetch("/create-payment-intent", {
         method: "POST",
@@ -46,20 +70,23 @@ export default function CheckoutForm(props) {
         setClientSecret(data.clientSecret);
       });
   }, []);
-  const cardStyle = {
+  
+  const CARD_OPTIONS = {
+    iconStyle: "solid",
     style: {
       base: {
-        color: "#32325d",
-        fontFamily: 'Arial, sans-serif',
-        fontSmoothing: "antialiased",
+        iconColor: "lightgray",
+        color: "gray",
+        fontWeight: 500,
+        fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
         fontSize: "16px",
+        fontSmoothing: "antialiased",
+        ":-webkit-autofill": {
+          color: "#fce883"
+        },
         "::placeholder": {
-          color: "#32325d"
+          color: "lightgray"
         }
-      },
-      invalid: {
-        color: "#fa755a",
-        iconColor: "#fa755a"
       }
     }
   };
@@ -95,7 +122,50 @@ export default function CheckoutForm(props) {
   return (
     <div className="checkout">
     <form id="payment-form" onSubmit={handleSubmit}>
-      <CardElement id="card-element" options={cardStyle} onChange={handleChange} />
+
+    <fieldset className="FormGroup">
+        <Field
+          label="Name"
+          id="name"
+          type="text"
+          placeholder="Jane Doe"
+          required
+          autoComplete="name"
+          value={billingDetails.name}
+          onChange={(e) => {
+            setBillingDetails({ ...billingDetails, name: e.target.value });
+          }}
+        />
+        <Field
+          label="Email"
+          id="email"
+          type="email"
+          placeholder="janedoe@gmail.com"
+          required
+          autoComplete="email"
+          value={billingDetails.email}
+          onChange={(e) => {
+            setBillingDetails({ ...billingDetails, email: e.target.value });
+          }}
+        />
+        <Field
+          label="Phone"
+          id="phone"
+          type="tel"
+          placeholder="(941) 555-0123"
+          required
+          autoComplete="tel"
+          value={billingDetails.phone}
+          onChange={(e) => {
+            setBillingDetails({ ...billingDetails, phone: e.target.value });
+          }}
+        />
+      </fieldset>
+
+
+
+
+      <CardElement id="card-element" options={CARD_OPTIONS} onChange={handleChange} />
       <button
         disabled={processing || disabled || succeeded}
         id="submit"
