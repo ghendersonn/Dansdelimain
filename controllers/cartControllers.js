@@ -20,14 +20,16 @@ module.exports.get_cart_items = async (req,res) => {
 
 module.exports.add_cart_item = async (req,res) => {
     const userId = req.params.id;
-    const { productId, quantity } = req.body;
-
+    const { productId, quantity, active } = req.body;
+    console.log(active)
     try{
         let cart = await Cart.findOne({userId});
         let item = await Item.findOne({_id: productId});
         if(!item){
             res.status(404).send('Item not found!')
         }
+
+        const priceActive = active;
         const price = item.price;
         const name = item.name;
         
@@ -43,9 +45,9 @@ module.exports.add_cart_item = async (req,res) => {
                 cart.items[itemIndex] = productItem;
             }
             else {
-                cart.items.push({ productId, name, quantity, price });
+                cart.items.push({ productId, name, quantity, price, priceActive });
             }
-            cart.bill += quantity*price;
+            cart.bill += quantity*priceActive;
             cart = await cart.save();
             return res.status(201).send(cart);
         }
@@ -53,8 +55,8 @@ module.exports.add_cart_item = async (req,res) => {
             // no cart exists, create one
             const newCart = await Cart.create({
                 userId,
-                items: [{ productId, name, quantity, price }],
-                bill: quantity*price
+                items: [{ productId, name, quantity, price, priceActive }],
+                bill: quantity*priceActive
             });
             return res.status(201).send(newCart);
         }       
@@ -74,7 +76,7 @@ module.exports.delete_item = async (req,res) => {
         if(itemIndex > -1)
         {
             let productItem = cart.items[itemIndex];
-            cart.bill -= productItem.quantity*productItem.price;
+            cart.bill -= productItem.quantity*productItem.priceActive;
             cart.items.splice(itemIndex,1);
         }
         cart = await cart.save();

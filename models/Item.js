@@ -14,6 +14,14 @@ const ItemSchema = new Schema({
         type: Number,
         required: true
     },
+    priceM: {
+        type: Number,
+        
+    },
+    priceL: {
+        type: Number,
+
+    },
 }, {collection: 'app'});
 
 module.exports = Item = mongoose.model('item',ItemSchema);

@@ -21,7 +21,8 @@ const CartSchema = new Schema({
             min: [1, 'Quantity can not be less then 1.'],
             default: 1
         },
-        price: Number
+        price: Number,
+        priceActive: Number
     }],
     bill: {
         type: Number,

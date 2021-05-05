@@ -9,7 +9,7 @@ import { getCart, deleteFromCart } from '../actions/cartActions';
 import CheckoutForm from './Checkouts';
 import { checkout } from '../actions/orderActions';
 
-const promise = loadStripe("pk_test_51INoKRAFG88dmRAyS91CKrUjSkKCDwijf0HtkNqOP2awy6AKAZ3jsh4MkbyuDiWB2gb22P08T3Vmhz98L7sMxbgy00Fd6DrHR3");
+const promise = loadStripe("pk_test_51IN7khGVhP2rcc7nysx6UWhDGnBbna3PfDXUSWwxx5554XqE9SXg8JmOdzOrLN51jYVOaipAMdhR6RQ7jbCpXQD400yHT1H1OL");
 
 class Cart extends Component {
 
@@ -63,7 +63,7 @@ class Cart extends Component {
                         <Card>
                             <CardBody>
                                 <CardText tag="h5">{item.name}</CardText>
-                                <CardSubtitle tag="h6">${item.price}</CardSubtitle>
+                                <CardSubtitle tag="h6">${item.priceActive}</CardSubtitle>
                                 <CardText>Quantity - {item.quantity}</CardText>
                                 <Button onClick={this.onDeleteFromCart.bind(this, user._id, item.productId)}>Delete</Button>
                             </CardBody>
@@ -74,9 +74,14 @@ class Cart extends Component {
                         <div class="col-md-12">
                         
                             
-                                <CardTitle tag="h5">Total Cost = $ {this.props.cart.cart.bill}</CardTitle>
-                                <Elements stripe={promise}>
-                                    <CheckoutForm total={this.props.cart.cart.bill} />
+                                <CardTitle tag="h5">Total Cost = $ {this.props.cart.cart.bill.toFixed(2)}</CardTitle>
+                                <Elements stripe={promise} >
+                                    <CheckoutForm 
+                                    user={user._id}
+                                    amount={this.props.cart.cart.bill}
+                                    checkout={this.props.checkout}
+                                    />
+                                    
                                 </Elements>                   
                             
                         

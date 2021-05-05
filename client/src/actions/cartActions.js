@@ -12,8 +12,8 @@ export const getCart = (id) => dispatch => {
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 }
 
-export const addToCart = (id, productId, quantity) => dispatch => {
-    axios.post(`/api/cart/${id}`, {productId, quantity, })
+export const addToCart = (id, productId, quantity, active) => dispatch => {
+    axios.post(`/api/cart/${id}`, {productId, quantity, active})
         .then(res => dispatch({
             type: ADD_TO_CART,
             payload: res.data

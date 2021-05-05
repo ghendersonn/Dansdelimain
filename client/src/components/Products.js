@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import AppNavbar from './AppNavbar';
 import {Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Container} from 'reactstrap';
+import { Dropdown } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
@@ -8,11 +9,21 @@ import { addToCart } from '../actions/cartActions';
 
 
 
+
 class Products extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          price: 0
+        };
+      }
 
     componentDidMount(){
         this.props.getItems();
-        
+        this.setState({
+            active: false,
+        })
     }
 
     getCategory = async () => {
@@ -28,7 +39,18 @@ class Products extends Component {
         
         };
         
+        handleOptionChange = changeEvent => {
+            this.setState({
+              priceActive: changeEvent.target.value
+            });
+          };
         
+          handleFormSubmit = formSubmitEvent => {
+            formSubmitEvent.preventDefault();
+            let priceActive = this.state.priceActive
+            console.log("You have submitted:", priceActive);
+            return priceActive
+          };
     
     
 
@@ -41,7 +63,8 @@ class Products extends Component {
     }
 
     onAddToCart = async (id, productId) => {
-        await this.props.addToCart(id, productId, 1);
+        let priceActive = this.state.priceActive
+        await this.props.addToCart(id, productId, 1, priceActive);
         alert ('Item added to Cart');
     }
 
@@ -54,7 +77,7 @@ class Products extends Component {
         items.forEach(element => {
             if ( element.category === "Steaks") {
             steaks.push( element )
-            console.log( steaks )  
+ 
             }
         })
 
@@ -62,7 +85,7 @@ class Products extends Component {
         items.forEach(element => {
             if ( element.category === "Hoagies") {
             hoagies.push( element )
-            console.log( hoagies )  
+            
             }
         })
 
@@ -70,11 +93,8 @@ class Products extends Component {
         items.forEach(element => {
             if ( element.category === "Sandwiches") {
             sandwiches.push( element )
-            console.log( sandwiches )  
             }
         })
-
-
 
 
 
@@ -85,7 +105,7 @@ class Products extends Component {
             <Container>
             <h2>Steaks</h2>
                 <div className="row">
-                {steaks.map((item )=>(
+                {steaks.map((item, i)=>(
                     
                     <div className="col-md-4">
                     <Card className="mb-4">
@@ -93,13 +113,59 @@ class Products extends Component {
                             
                             <CardTitle tag="h5">{item.name}</CardTitle>
                             
-                            <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
-                            <CardText>{item.category}</CardText>
+                            <form onSubmit={this.handleFormSubmit}>
+                                <div className="form-check">
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        
+                                        value={item.price}
+                                        onChange={this.handleOptionChange}
+                                        className="form-check-input"
+                                    />
+                                    <CardSubtitle tag="h6">$ {item.price.toFixed(2)}</CardSubtitle>
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        
+                                        value={item.priceM}
+                                        onChange={this.handleOptionChange}
+                                        className="form-check-input"
+                                    />
+                                    <CardSubtitle tag="h6">$ {item.priceM.toFixed(2)}</CardSubtitle>
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        
+                                        value={item.priceL}
+                                        onChange={this.handleOptionChange}
+                                        className="form-check-input"
+                                    />
+                                    <CardSubtitle tag="h6">$ {item.priceL.toFixed(2)}</CardSubtitle>
+                                    </label>
+                                </div>
+                                <div className="form-group">
+                                    <button className="btn btn-primary mt-2" type="submit">
+                                    Save
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            
                             {this.props.isAuthenticated ? 
                                 <Button
                                     color="success"
                                     size="sm"
-                                    onClick={this.onAddToCart.bind(this, user._id, item._id)}
+                                    onClick={this.onAddToCart.bind(this, user._id, item._id, )}
                                     >Add To Cart</Button> :
                                     null}
                         </CardBody>
@@ -113,7 +179,7 @@ class Products extends Component {
             <h2>Hoagies</h2>
                 <div className="row">
                 
-                {hoagies.map((item )=>(
+                {hoagies.map((item, i )=>(
                     
                     <div className="col-md-4">
                         
@@ -121,6 +187,7 @@ class Products extends Component {
                         <CardBody>
                             
                             <CardTitle tag="h5">{item.name}</CardTitle>
+
                             <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
                             <CardText>{item.category}</CardText>
                             {this.props.isAuthenticated ? 
@@ -143,7 +210,7 @@ class Products extends Component {
             <h2>Sandwiches</h2>
                 <div className="row">
                 
-                {sandwiches.map((item )=>(
+                {sandwiches.map((item, i)=>(
                     
                     <div className="col-md-4">
                         

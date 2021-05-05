@@ -47,10 +47,10 @@ export default function CheckoutForm(props) {
   
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
+  const [total, setTotal] = useState(props.amount);
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState('');
-  const [cart, setCart] = useState()
   const [billingDetails, setBillingDetails] = useState({
     email: "",
     phone: "",
@@ -60,14 +60,19 @@ export default function CheckoutForm(props) {
   const stripe = useStripe();
   const elements = useElements();
   
+
+
+
+  
   useEffect(() => {
+    
     window
       .fetch("/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify( )
+        body: JSON.stringify({total})
       })
       .then(res => {
         return res.json();
@@ -75,7 +80,7 @@ export default function CheckoutForm(props) {
       .then(data => {
         setClientSecret(data.clientSecret);
       });
-  }, []);
+  }, [total]);
   
   const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -99,8 +104,11 @@ export default function CheckoutForm(props) {
 
 
   
-
+  const onToken = (user,checkout) => token => {
+    checkout(user, token.id);
+  }
   
+
 
   const handleChange = async (event) => {
     // Listen for changes in the CardElement
@@ -121,11 +129,13 @@ export default function CheckoutForm(props) {
       setProcessing(false);
     } else {
       setError(null);
+      
       setProcessing(false);
       setSucceeded(true);
     }
   };
   return (
+    
     <div className="checkout">
     <form id="payment-form" onSubmit={handleSubmit}>
 
@@ -182,7 +192,7 @@ export default function CheckoutForm(props) {
           ) : (
             "Pay now " 
           )}
-          {"$"}{ }
+          {"$"}{ total.toFixed(2) }
         </span>
       </button>
       {/* Show any error that happens when processing the payment */}
