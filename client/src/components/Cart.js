@@ -78,6 +78,7 @@ class Cart extends Component {
                                 <Elements stripe={promise} >
                                     <CheckoutForm 
                                     user={user._id}
+                                    items={this.props.cart.cart}
                                     amount={this.props.cart.cart.bill}
                                     checkout={this.props.checkout}
                                     />

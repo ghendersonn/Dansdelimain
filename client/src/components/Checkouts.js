@@ -129,7 +129,6 @@ export default function CheckoutForm(props) {
       setProcessing(false);
     } else {
       setError(null);
-      
       setProcessing(false);
       setSucceeded(true);
     }

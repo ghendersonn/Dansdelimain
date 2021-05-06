@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
 import { addToCart } from '../actions/cartActions';
+import 'react-dropdown-now/style.css';
 
 
 
@@ -16,8 +17,11 @@ class Products extends Component {
         super(props);
         this.state = {
           price: 0
+          
         };
       }
+      
+
 
     componentDidMount(){
         this.props.getItems();
@@ -124,7 +128,7 @@ class Products extends Component {
                                         onChange={this.handleOptionChange}
                                         className="form-check-input"
                                     />
-                                    <CardSubtitle tag="h6">$ {item.price.toFixed(2)}</CardSubtitle>
+                                    <CardSubtitle tag="h6">Reg: $ {item.price.toFixed(2)}</CardSubtitle>
                                     </label>
                                 </div>
                                 <div className="form-check">
@@ -137,7 +141,7 @@ class Products extends Component {
                                         onChange={this.handleOptionChange}
                                         className="form-check-input"
                                     />
-                                    <CardSubtitle tag="h6">$ {item.priceM.toFixed(2)}</CardSubtitle>
+                                    <CardSubtitle tag="h6">M: $ {item.priceM.toFixed(2)}</CardSubtitle>
                                     </label>
                                 </div>
                                 <div className="form-check">
@@ -150,7 +154,7 @@ class Products extends Component {
                                         onChange={this.handleOptionChange}
                                         className="form-check-input"
                                     />
-                                    <CardSubtitle tag="h6">$ {item.priceL.toFixed(2)}</CardSubtitle>
+                                    <CardSubtitle tag="h6">L: $ {item.priceL.toFixed(2)}</CardSubtitle>
                                     </label>
                                 </div>
                                 <div className="form-group">
@@ -185,11 +189,54 @@ class Products extends Component {
                         
                     <Card className="mb-4">
                         <CardBody>
+                        <CardTitle tag="h5">{item.name}</CardTitle>
+                        <form onSubmit={this.handleFormSubmit}>
+                                <div className="form-check">
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        
+                                        value={item.price}
+                                        onChange={this.handleOptionChange}
+                                        className="form-check-input"
+                                    />
+                                    <CardSubtitle tag="h6">Reg: $ {item.price.toFixed(2)}</CardSubtitle>
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        
+                                        value={item.priceM}
+                                        onChange={this.handleOptionChange}
+                                        className="form-check-input"
+                                    />
+                                    <CardSubtitle tag="h6">M: $ {item.priceM.toFixed(2)}</CardSubtitle>
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <label>
+                                    <input
+                                        type="radio"
+                                        name="react-tips"
+                                        
+                                        value={item.priceL}
+                                        onChange={this.handleOptionChange}
+                                        className="form-check-input"
+                                    />
+                                    <CardSubtitle tag="h6">L: $ {item.priceL.toFixed(2)}</CardSubtitle>
+                                    </label>
+                                </div>
+                                <div className="form-group">
+                                    <button className="btn btn-primary mt-2" type="submit">
+                                    Save
+                                    </button>
+                                </div>
+                            </form>
                             
-                            <CardTitle tag="h5">{item.name}</CardTitle>
-
-                            <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
-                            <CardText>{item.category}</CardText>
                             {this.props.isAuthenticated ? 
                                 <Button
                                     color="success"
