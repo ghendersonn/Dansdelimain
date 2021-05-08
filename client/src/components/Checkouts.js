@@ -136,6 +136,7 @@ export default function CheckoutForm(props) {
   return (
     
     <div className="checkout">
+      
     <form id="payment-form" onSubmit={handleSubmit}>
 
     <fieldset className="FormGroup">

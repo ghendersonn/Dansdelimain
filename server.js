@@ -35,7 +35,6 @@ function calculateOrderAmount(products) {
   if (products >= 1) {
     let time = new Date()
     let hour = time.getHours()
-    console.log(hour)
     let total = products * 100
     return total
   } else {

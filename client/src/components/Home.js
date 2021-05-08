@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import { motion } from "framer-motion"
 
 class Home extends Component {
   render() {
     return (
+    <motion.div exit={{ opacity: 0 }}>
     <div className="header">
       
       <img src="dansdeli.png" alt="Delilogo"/>
@@ -16,6 +17,7 @@ class Home extends Component {
         </div>
       </Link>
     </div>
+    </motion.div>
     );
   }
 }

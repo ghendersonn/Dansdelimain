@@ -46,6 +46,7 @@ class Cart extends Component {
             <div>
                 
                 {this.props.isAuthenticated ?
+                
                     <Fragment>
                         {this.props.cart.cart ? null :
                             <Alert color="info" className="text-center">Your cart is empty!</Alert>

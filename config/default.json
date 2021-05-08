@@ -1,5 +1,8 @@
 {
     "dbURI": "mongodb+srv://ghendersonn:Potishot69@cluster0.2igpk.mongodb.net/Menu?retryWrites=true&w=majority",
     "jwtsecret": "your jwt secret",
-    "StripeAPIKey": "sk_test_51IN7khGVhP2rcc7nk5psNjLWxh8hYDtvdJjrGe3JlEIlOFYjaQvQ3yiGixPZV9PB71Lid3hPj10r3bcYOuyU0Vvl001eRp4Yf9"
+    "StripeAPIKey": "sk_test_51IN7khGVhP2rcc7nk5psNjLWxh8hYDtvdJjrGe3JlEIlOFYjaQvQ3yiGixPZV9PB71Lid3hPj10r3bcYOuyU0Vvl001eRp4Yf9",
+    "email": "create@siteppl.com",
+    "password": "Potishot69"
+
 }

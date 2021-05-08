@@ -78,6 +78,15 @@ class RegisterModal extends Component {
 
     }
 
+    onGuest = (e) => {
+        const { name, email, password } = { name: "guest", email: "guest@gmail.com", password: "guestaccount"}
+        const newUser = { name, email, password}
+        this.props.register(newUser)
+    }
+
+
+
+
     render(){
         return(
             <div className="container">
@@ -125,8 +134,15 @@ class RegisterModal extends Component {
                                     style={{marginTop: '2rem'}}
                                     block
                                 >Register</Button>
+                                
                             </FormGroup>
                         </Form>
+                        <Button
+                                    color="dark"
+                                    style={{marginTop: '1rem'}}
+                                    block
+                                    onClick={this.onGuest}
+                                >Use guest account</Button>
                     </ModalBody>
                 </Modal>
             </div>

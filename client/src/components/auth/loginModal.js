@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
-
+import { Link } from 'react-router-dom';
 class LoginModal extends Component {
     state = {
         modal: false,
@@ -113,6 +113,7 @@ class LoginModal extends Component {
                                 >Login</Button>
                             </FormGroup>
                         </Form>
+                        <Link  to={'/forgot-password'}> Forget</Link>
                     </ModalBody>
                 </Modal>
             </div>

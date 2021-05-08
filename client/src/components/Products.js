@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
 import { addToCart } from '../actions/cartActions';
 import 'react-dropdown-now/style.css';
-
+import { motion } from "framer-motion"
 
 
 
@@ -104,8 +104,9 @@ class Products extends Component {
 
 
         return (
+            <motion.div exit={{ opacity: 0 }}>
             <div>
-
+            
             <Container>
             <h2>Steaks</h2>
                 <div className="row">
@@ -284,6 +285,7 @@ class Products extends Component {
 
 
             </div>
+            </motion.div>
         )
     }
 }

@@ -14,7 +14,8 @@ import Logout from './auth/Logout';
 import LoginModal from './auth/loginModal';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import { Link } from 'react-router-dom';
+import {motion} from 'framer-motion'
 
 class AppNavbar extends Component {
     state = {
@@ -42,16 +43,33 @@ class AppNavbar extends Component {
                     </span>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/">Home</NavLink>
+                    
+                    <NavLink><Link style={{ textDecoration: 'none' }} to={'./home'}>
+                    <div className="button" variant="raised">
+                        Home
+                    </div>
+                    </Link></NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/menu">Menu</NavLink>
+                    <NavLink><Link style={{ textDecoration: 'none' }} to={'./menu'}>
+                    <div className="button" variant="raised">
+                        Menu
+                    </div>
+                    </Link></NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/cart">Cart</NavLink>
+                    <NavLink><Link style={{ textDecoration: 'none' }} to={'./cart'}>
+                    <div className="button" variant="raised">
+                        Cart
+                    </div>
+                    </Link></NavLink>
                 </NavItem>
                 <NavItem className="mr-2">
-                    <NavLink href="/orders">Orders</NavLink>
+                    <NavLink ><Link style={{ textDecoration: 'none' }} to={'./orders'}>
+                    <div className="button" variant="raised">
+                        Orders
+                    </div>
+                    </Link></NavLink>
                 </NavItem>
                 <NavItem>
                     <Logout/>
