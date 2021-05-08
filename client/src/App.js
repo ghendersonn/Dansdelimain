@@ -5,7 +5,7 @@ import Main from './components/Main';
 import store from './store';
 import {loadUser} from './actions/authActions';
 import { BrowserRouter } from 'react-router-dom';
-
+import AppNavbar from './components/AppNavbar'
 class App extends Component {
   componentDidMount(){
     store.dispatch(loadUser());
@@ -15,6 +15,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div className="App">
+          <AppNavbar/>
             <Main/>
           </div> 
         </BrowserRouter>

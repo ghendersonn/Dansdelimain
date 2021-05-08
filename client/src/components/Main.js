@@ -44,7 +44,7 @@ function Main() {
         return (
             
                 <AnimatePresence exitBeforeEnter>
-                <AppNavbar/>
+               
                 <Switch location={location} key={location.pathname}>
                     <Route path='/home'>
                     <motion.div
