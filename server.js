@@ -44,9 +44,10 @@ function calculateOrderAmount(products) {
 
 app.post("/create-payment-intent", async (req, res) => {
   let products = req.body;
+  products = products.total.toFixed(2)
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(products.total.toFixed(2)),
+    amount: calculateOrderAmount(products),
     currency: "usd"
   });
   res.send({

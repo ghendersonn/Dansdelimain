@@ -22,7 +22,8 @@ const CartSchema = new Schema({
             default: 1
         },
         price: Number,
-        priceActive: Number
+        priceActive: Number,
+        
     }],
     bill: {
         type: Number,

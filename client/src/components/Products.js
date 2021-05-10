@@ -1,44 +1,53 @@
 import { Component, useState } from 'react';
 import AppNavbar from './AppNavbar';
-import {Card, CardText, CardBody, CardTitle, CardSubtitle, Button, Container} from 'reactstrap';
-import { Dropdown } from 'react-bootstrap';
+import { CardText, CardBody, CardTitle, CardSubtitle,  Container} from 'reactstrap';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getItems } from '../actions/itemActions';
 import { addToCart } from '../actions/cartActions';
 import 'react-dropdown-now/style.css';
 import { motion } from "framer-motion"
-
-
-
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Alert from '@material-ui/lab/Alert';
+import  Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent'
 class Products extends Component {
+
 
     constructor(props) {
         super(props);
-        this.state = {
-          price: 0
-          
-        };
+        this.state = {anchorEl: null};
       }
-      
 
 
     componentDidMount(){
         this.props.getItems();
         this.setState({
             active: false,
+            anchorEl: null
         })
     }
+
+
+     
 
     getCategory = async () => {
         const { items }  = this.props.item;
         console.log( items )
         let steaks = []
+        let hoagies = []
         items.forEach(element => {
             if ( element.category === "Steaks") {
             steaks.push( element )
             console.log( steaks )  
             }
+            if ( element.category === "Hoagies") {
+                hoagies.push( element )
+                console.log( steaks )  
+                }
         })
         
         };
@@ -67,9 +76,11 @@ class Products extends Component {
     }
 
     onAddToCart = async (id, productId) => {
+        
         let priceActive = this.state.priceActive
+        
         await this.props.addToCart(id, productId, 1, priceActive);
-        alert ('Item added to Cart');
+        <Alert severity="success">Added to Cart</Alert>
     }
 
     
@@ -100,7 +111,12 @@ class Products extends Component {
             }
         })
 
-
+        let handleClose = () => {
+            this.setState({ anchorEl: null })
+          };
+        let handleClick = (event) => {
+            this.setState({ anchorEl: event.currentTarget })
+          };
 
 
         return (
@@ -114,12 +130,29 @@ class Products extends Component {
                     
                     <div className="col-md-4">
                     <Card className="mb-4">
-                        <CardBody>
+                        <CardContent>
                             
                             <CardTitle tag="h5">{item.name}</CardTitle>
-                            
+                            <Button id="price"aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                            Prices
+                            </Button>
                             <form onSubmit={this.handleFormSubmit}>
-                                <div className="form-check">
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={this.state.anchorEl}
+                                keepMounted
+                                elevation={0}
+                                open={Boolean(this.state.anchorEl)}
+                                onClose={handleClose}
+                                anchorOrigin={{
+                                    horizontal: 'center',
+                                  }}
+                                  transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'center',
+                                  }}
+                            >
+                                <MenuItem ><div className="form-check">
                                     <label>
                                     <input
                                         type="radio"
@@ -129,10 +162,10 @@ class Products extends Component {
                                         onChange={this.handleOptionChange}
                                         className="form-check-input"
                                     />
-                                    <CardSubtitle tag="h6">Reg: $ {item.price.toFixed(2)}</CardSubtitle>
+                                   Reg: $ {item.price.toFixed(2)}
                                     </label>
-                                </div>
-                                <div className="form-check">
+                                </div></MenuItem>
+                                <MenuItem ><div className="form-check">
                                     <label>
                                     <input
                                         type="radio"
@@ -144,8 +177,8 @@ class Products extends Component {
                                     />
                                     <CardSubtitle tag="h6">M: $ {item.priceM.toFixed(2)}</CardSubtitle>
                                     </label>
-                                </div>
-                                <div className="form-check">
+                                </div></MenuItem>
+                                <MenuItem ><div className="form-check">
                                     <label>
                                     <input
                                         type="radio"
@@ -155,25 +188,26 @@ class Products extends Component {
                                         onChange={this.handleOptionChange}
                                         className="form-check-input"
                                     />
-                                    <CardSubtitle tag="h6">L: $ {item.priceL.toFixed(2)}</CardSubtitle>
+                                    <CardSubtitle >L: $ {item.priceL.toFixed(2)}</CardSubtitle>
                                     </label>
-                                </div>
-                                <div className="form-group">
-                                    <button className="btn btn-primary mt-2" type="submit">
-                                    Save
-                                    </button>
-                                </div>
+                                </div></MenuItem>
+                            </Menu>
                             </form>
+                                
+                                
+                                
+                                
+                            
                             
                             
                             {this.props.isAuthenticated ? 
                                 <Button
                                     color="success"
                                     size="sm"
-                                    onClick={this.onAddToCart.bind(this, user._id, item._id, )}
+                                    onClick={this.onAddToCart.bind(this, user._id, item._id)}
                                     >Add To Cart</Button> :
                                     null}
-                        </CardBody>
+                        </CardContent>
                     </Card>
                     </div>
                 ))}
@@ -184,60 +218,24 @@ class Products extends Component {
             <h2>Hoagies</h2>
                 <div className="row">
                 
-                {hoagies.map((item, i )=>(
+                {hoagies.map((item, i)=>(
                     
                     <div className="col-md-4">
                         
                     <Card className="mb-4">
-                        <CardBody>
-                        <CardTitle tag="h5">{item.name}</CardTitle>
-                        <form onSubmit={this.handleFormSubmit}>
-                                <div className="form-check">
-                                    <label>
-                                    <input
-                                        type="radio"
-                                        name="react-tips"
-                                        
-                                        value={item.price}
-                                        onChange={this.handleOptionChange}
-                                        className="form-check-input"
-                                    />
-                                    <CardSubtitle tag="h6">Reg: $ {item.price.toFixed(2)}</CardSubtitle>
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <label>
-                                    <input
-                                        type="radio"
-                                        name="react-tips"
-                                        
-                                        value={item.priceM}
-                                        onChange={this.handleOptionChange}
-                                        className="form-check-input"
-                                    />
-                                    <CardSubtitle tag="h6">M: $ {item.priceM.toFixed(2)}</CardSubtitle>
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <label>
-                                    <input
-                                        type="radio"
-                                        name="react-tips"
-                                        
-                                        value={item.priceL}
-                                        onChange={this.handleOptionChange}
-                                        className="form-check-input"
-                                    />
-                                    <CardSubtitle tag="h6">L: $ {item.priceL.toFixed(2)}</CardSubtitle>
-                                    </label>
-                                </div>
-                                <div className="form-group">
-                                    <button className="btn btn-primary mt-2" type="submit">
-                                    Save
-                                    </button>
-                                </div>
-                            </form>
+                        <CardContent>
                             
+
+
+
+
+
+
+
+                            
+                            <CardTitle tag="h5">{item.name}</CardTitle>
+                            <CardSubtitle tag="h6">$ {item.price}</CardSubtitle>
+                            <CardText>{item.category}</CardText>
                             {this.props.isAuthenticated ? 
                                 <Button
                                     color="success"
@@ -245,13 +243,12 @@ class Products extends Component {
                                     onClick={this.onAddToCart.bind(this, user._id, item._id)}
                                     >Add To Cart</Button> :
                                     null}
-                        </CardBody>
+                        </CardContent>
                     </Card>
                     </div>
                 ))}
                  </div>
             </Container>
-
 
 
             <Container>

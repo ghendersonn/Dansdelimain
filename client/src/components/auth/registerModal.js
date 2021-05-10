@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import {
-    Button,
     Modal,
     ModalHeader,
     ModalBody,
@@ -11,6 +10,7 @@ import {
     NavLink,
     Alert
 } from 'reactstrap';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { register } from '../../actions/authActions';
@@ -79,9 +79,14 @@ class RegisterModal extends Component {
     }
 
     onGuest = (e) => {
-        const { name, email, password } = { name: "guest", email: "guest@gmail.com", password: "guestaccount"}
-        const newUser = { name, email, password}
-        this.props.register(newUser)
+        let i = 0;
+        for(i=0; i<500000; i++) {
+            const { name, email, password } = { name: `guest${i}`, email: `guest${i}@gmail.com`, password: `guestaccount${i}`}
+            const newUser = { name, email, password}
+            this.props.register(newUser)
+            return newUser
+        }
+        
     }
 
 

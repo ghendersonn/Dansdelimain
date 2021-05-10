@@ -1,7 +1,8 @@
 import { Component, Fragment } from 'react';
 import { logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import {NavLink, Button} from 'reactstrap';
+import {NavLink} from 'reactstrap';
+import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 
 export class Logout extends Component {
@@ -13,7 +14,7 @@ export class Logout extends Component {
         return (
             <div>
                 <Fragment>
-                    <Button className="btn btn-sm"><NavLink onClick={this.props.logout} href="#"><span className="text-light"><b>Logout</b></span></NavLink></Button>
+                    <Button className="btn btn-sm"><NavLink onClick={this.props.logout} href="#"><span className="text-dark"><b>Logout</b></span></NavLink></Button>
                 </Fragment>
             </div>
         )

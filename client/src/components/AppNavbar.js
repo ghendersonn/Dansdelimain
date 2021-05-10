@@ -9,6 +9,7 @@ import {
     Container, 
     NavLink,
 } from 'reactstrap';
+
 import RegisterModal from './auth/registerModal';
 import Logout from './auth/Logout';
 import LoginModal from './auth/loginModal';

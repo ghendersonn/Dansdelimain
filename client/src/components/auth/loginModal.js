@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import {
-    Button,
     Modal,
     ModalHeader,
     ModalBody,
@@ -11,6 +10,7 @@ import {
     NavLink,
     Alert
 } from 'reactstrap';
+import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/authActions';
@@ -110,6 +110,7 @@ class LoginModal extends Component {
                                     color="dark"
                                     style={{marginTop: '2rem'}}
                                     block
+                                    type="submit"
                                 >Login</Button>
                             </FormGroup>
                         </Form>

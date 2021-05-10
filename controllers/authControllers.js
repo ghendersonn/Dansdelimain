@@ -156,7 +156,7 @@ module.exports.reset_passwords = (req, res) => {
     
     User.findOne(
         {
-          resetPasswordToken: req.body.resetPasswordToken,
+          resetPasswordToken: req.query.resetPasswordToken,
           resetPasswordExpires: {
             $gt: Date.now(),
           },
@@ -167,7 +167,7 @@ module.exports.reset_passwords = (req, res) => {
           res.status(403).send('password reset link is invalid or has expired');
         } else {
           res.status(200).send({
-            username: user.username,
+            username: user.email,
             message: 'password reset link a-ok',
           });
         }
@@ -179,8 +179,8 @@ module.exports.update_password = (req, res) => {
     BCRYPT_SALT_ROUNDS = 12;
     User.findOne(
         {
-          username: req.body.username,
-          resetPasswordToken: req.body.resetPasswordToken,
+          username: req.query.username,
+          resetPasswordToken: req.query.resetPasswordToken,
         },
       ).then(user => {
         if (user == null) {

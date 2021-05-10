@@ -16,10 +16,12 @@ const ItemSchema = new Schema({
     },
     priceM: {
         type: Number,
+        default: 0
         
     },
     priceL: {
         type: Number,
+        default: 0
 
     },
 }, {collection: 'app'});
